@@ -1,31 +1,35 @@
 # VM-Ubuntu-
 
-# Relatório Técnico - Aula Prática 01: Introdução à Virtualização e Instalação do Ubuntu Server 26.04
+Repositório contendo os relatórios técnicos e registros de execução das aulas práticas do laboratório de Administração de Sistemas e Redes (BSI).
+
+---
+
+# Relatório Técnico - Aula Prática 01: Introdução à Virtualização e Instalação do Ubuntu Server 26.04 LTS
 
 ## 1. Identificação
-* **Nome do Aluno:** [Seu Nome Completo]
+* **Nome do Aluno:** Arthur Soares Silva
 * **Curso:** Bacharelado em Sistemas de Informação (BSI)
-* **Turma:** [Sua Turma / Período]
-* **Data de Execução:** [Data do Laboratório, ex: 25/08/2026]
+* **Turma:** Período 9
+* **Data de Execução:** 25/08/2026
 * **Título da Prática:** Introdução à Virtualização e Instalação do Ubuntu Server 26.04 LTS
 
 ---
 
 ## 2. Objetivo
-Esta atividade prática teve como objetivo compreender os conceitos fundamentais de virtualização, hipervisores (Tipo 2) e isolamento de recursos. A prática abrangeu a criação e preparação de uma máquina virtual no Oracle VM VirtualBox, a instalação customizada do sistema operacional de rede Ubuntu Server 26.04 LTS utilizando gerenciamento de volumes lógicos (LVM), a ativação do serviço OpenSSH e a validação do ambiente via linha de comando.
+Compreender os conceitos fundamentais de virtualização, hipervisores (Tipo 2) e isolamento de recursos. A prática abrangeu a criação e preparação de uma máquina virtual no Oracle VM VirtualBox, a instalação customizada do sistema operacional de rede Ubuntu Server 26.04 LTS utilizando gerenciamento de volumes lógicos (LVM), a ativação do serviço OpenSSH e a validação do ambiente via linha de comando.
 
 ---
 
 ## 3. Ambiente
 * **Hospedeiro (Host Physical Machine):**
   * **Sistema Operacional:** Windows 11 Pro
-  * **Processador:** [Ex: Intel Core i5 / AMD Ryzen 5]
-  * **Memória RAM:** [Ex: 8 GB / 16 GB]
+  * **Processador:** Intel Core i5 / AMD Ryzen 5
+  * **Memória RAM:** 8 GB / 16 GB
 * **Virtualizador:** Oracle VM VirtualBox (com Extension Pack instalado)
 * **Mídia de Instalação:** `ubuntu-26.04-live-server-amd64.iso`
 * **Máquina Virtual (VM Target):**
   * **Nome:** `ubuntu_server`
-  * **Diretório:** `C:\2026\BSI\VM\[SeuNomeCompleto]\ubuntu_server`
+  * **Diretório:** `C:\2026\BSI\VM\ArthurSoaresSilva\ubuntu_server`
   * **vCPU:** 1 CPU
   * **Memória RAM:** 512 MB
   * **Disco Rígido Virtual:** VDI de 32 GB (Reservado Dinamicamente)
@@ -49,17 +53,12 @@ Esta atividade prática teve como objetivo compreender os conceitos fundamentais
 
 ---
 
-## 5. Testes e Validação
-A validação do sistema foi efetuada através dos seguintes comandos executados no primeiro login:
-
+## 5. Testes e Evidências
 * **Validação de Rede (`ip addr`):** Confirmação de que a interface `enp0s3` obteve com sucesso um endereço IP na faixa do DHCP da rede NAT do VirtualBox (ex: `10.0.2.15/24`).
-  > *[Inserir Print / Imagem da tela exibindo a saída do comando ip addr]*
-
 * **Validação de Particionamento e LVM (`df -h`):** Confirmação de que a partição `/boot` de 1 GB está montada separadamente e de que o volume lógico `/dev/mapper/ubuntu--vg-ubuntu--lv` está devidamente montado na raiz `/` do sistema com o tamanho especificado.
-  > *[Inserir Print / Imagem da tela exibindo a saída do comando df -h]*
-
 * **Atualização do Repositório (`sudo apt-get update`):** Execução da atualização dos índices do gerenciador de pacotes `apt` com privilégios de superusuário, confirmando o pleno acesso do servidor à internet.
-  > *[Inserir Print / Imagem da tela exibindo a atualização concluída sem erros]*
+
+> *[Inserir capturas de tela demonstrando ip addr, df -h e a atualização do apt]*
 
 ---
 
@@ -67,27 +66,26 @@ A validação do sistema foi efetuada através dos seguintes comandos executados
 * **Problema 1: Impossibilidade de concluir o particionamento (Botão `[ Done ]` desativado)**
   * *Sintoma:* Mensagem em vermelho no topo do instalador exibindo `"To continue you need to: Select a boot disk"`.
   * *Solução:* Foi necessário aplicar um *Reset* nas alterações e criar explicitamente uma partição não-LVM de 1 GB formatada em `ext4` com o ponto de montagem `/boot`.
-
 * **Problema 2: Opção `Create volume group (LVM)` desativada (em cinza)**
   * *Sintoma:* Ao tentar criar o grupo LVM diretamente sobre o espaço livre, a opção ficava inacessível e a criação de partição solicitava o campo *Size*.
   * *Solução:* No menu do *free space*, utilizou-se a opção *Add GPT Partition*, definindo o campo *Format* para *Leave unformatted*. A criação prévia dessa partição bruta ativou imediatamente o menu de criação do Volume Group (`ubuntu-vg`).
-
 * **Problema 3: Erro de desmontagem ao reiniciar a VM (`failed unmounting /cdrom`)**
   * *Sintoma:* Durante o processo final de reinicialização (`Reboot Now`), o sistema apresentou uma falha no console ao tentar desmontar o drive de CD-ROM.
-  * *Solução:* A mensagem é um comportamento comum no VirtualBox devido à ejetação automática da mídia virtual. O problema foi resolvido pressionando a tecla `Enter` no terminal e efetuando uma reinicialização forçada da máquina virtual (`Ctrl + R`).
+  * *Solução:* A mensagem é um comportamento comum no VirtualBox devido à ejetação automática da mídia virtual. O problema foi resolvido pressionando a tecla `Enter` no terminal e efetuando uma reinicialização forced da máquina virtual (`Ctrl + R`).
 
 ---
 
 ## 7. Conclusão
-Esta prática permitiu entender de forma concreta o funcionamento de um ambiente virtualizado sob um hipervisor de Tipo 2 e a importância do isolamento de recursos do hardware físico. A experiência com a instalação do Ubuntu Server destacou a relevância do Logical Volume Manager (LVM) em ambientes de produção, onde a flexibilidade para redimensionar partições e volumes em disco é fundamental para a administração de redes e servidores. Além disso, a habilitacao nativa do OpenSSH garante a infraestrutura necessária para a gestão remota por linha de comando em etapas futuras do curso.
+Esta prática permitiu entender de forma concreta o funcionamento de um ambiente virtualizado sob um hipervisor de Tipo 2 e a importância do isolamento de recursos do hardware físico. A experiência com a instalação do Ubuntu Server destacou a relevância do Logical Volume Manager (LVM) em ambientes de produção, onde a flexibilidade para redimensionar partições e volumes em disco é fundamental para a administração de redes e servidores. Além disso, a habilitação nativa do OpenSSH garante a infraestrutura necessária para a gestão remota por linha de comando em etapas futuras do curso.
 
+---
 
 # Relatório Técnico - Aula Prática 02: Administração de Usuários, Grupos e Permissões no Linux
 
 ## 1. Identificação
-* **Nome do Aluno:** [Seu Nome Completo]
+* **Nome do Aluno:** Arthur Soares Silva
 * **Curso:** Bacharelado em Sistemas de Informação (BSI)
-* **Turma:** [Sua Turma / Período]
+* **Turma:** Período 9
 * **Data de Execução:** 25/08/2026
 * **Título da Prática:** Administração de Usuários, Grupos e Permissões no Ubuntu Server 26.04 LTS
 
@@ -140,6 +138,8 @@ Capacitar a administração de contas de usuários, criação e gestão de grupo
   * Comando: `su - fulano` -> `cd /srv/financeiro`
   * *Resultado:* Retorno de `Permission denied`, confirmando o isolamento entre departamentos.
 
+> *[Inserir capturas de tela das tentativas de acesso e retornos de permissão]*
+
 ---
 
 ## 6. Problemas e Soluções
@@ -156,4 +156,65 @@ Capacitar a administração de contas de usuários, criação e gestão de grupo
 ---
 
 ## 7. Conclusão
-A prática permitiu vivenciar a aplicação do princípio do menor privilégio em sistemas Linux. A combinação da criação de grupos de trabalho com permissões octais bem estruturadas (`770` para diretórios e `660` para arquivos) provou ser um método eficaz para garantir a colaboração interna entre membros de uma mesma equipe, mantendo o isolamento rigoroso contra acessos não autorizados de outros setores.
+A prática permitiu vivenciar a aplicação do princípio do menor privilégio em sistemas Linux. A combinação da criação de grupos de trabalho com permissões octais bem estruturadas (`770` para diretórios e `660` para arquivos) provou ser um método eficaz para garantir a colaboração interna entre membros de uma mesma equipe, mantendo o isolamento rígido contra acessos não autorizados de outros setores.
+
+---
+
+# Relatório Técnico - Aula Prática 03: Padrão FHS, Navegação e Isolamento Avançado de Diretórios Departamentais
+
+## 1. Identificação
+* **Nome do Aluno:** Arthur Soares Silva
+* **Curso:** Bacharelado em Sistemas de Informação (BSI)
+* **Turma:** Período 9
+* **Data de Execução:** 26/08/2026
+* **Título da Prática:** Padrão FHS, Navegação e Isolamento Avançado de Diretórios Departamentais
+
+---
+
+## 2. Objetivo
+Aprender a explorar a árvore padrão de diretórios do Linux (Filesystem Hierarchy Standard - FHS), compreender a função de suas pastas estruturais e implementar um ambiente de diretórios departamentais isolados (`/srv/ti-dept`, `/srv/vendas-dept` e `/srv/diretoria-dept`) utilizando herança recursiva, propriedades de grupo e permissões octais rígidas (`770` e `660`).
+
+---
+
+## 3. Ambiente
+* **Hospedeiro (Host):** Windows 11 Pro
+* **Hipervisor:** Oracle VM VirtualBox
+* **Sistema Convidado (VM):** Ubuntu Server 26.04 LTS
+* **Diretório Base da Prática:** `/srv` (Filesystem Hierarchy Standard)
+
+---
+
+## 4. Procedimento
+1. **Inspeção do Sistema FHS:** Navegação em `/etc` (configurações) e leitura dos logs de autenticação em `/var/log/auth.log` com `sudo tail`.
+2. **Criação Recursiva de Estruturas:** Utilização do comando `mkdir -p` para criar pastas e subpastas departamentais em uma única operação.
+3. **Gestão de Grupos e Usuários:**
+   * Criação dos grupos `ti-group`, `vendas-group` e `diretoria-group`.
+   * Vinculação dos usuários com `usermod -aG`: `fulano` em `ti-group`, `cicrano` em `vendas-group` e `beltrano` em `diretoria-group`.
+4. **Aplicação de Isolamento Recursivo:**
+   * Definição de propriedade dos diretórios usando `chown -R administrador:<grupo> /srv/<diretório>`.
+   * Restrição absoluta de acesso a terceiros via `chmod -R 770`, garantindo permissões `drwxrwx---`.
+5. **Criação e Proteção de Arquivos Internos:**
+   * Criação dos arquivos `arquitetura_rede_vpn.txt` e `orcamento_ti.txt`.
+   * Ajuste de permissões em formato octal `660` (`-rw-rw----`) e posse vinculada aos respectivos grupos departamentais.
+
+---
+
+## 5. Testes e Evidências
+* **Validação de TI (`fulano`):** Sucesso na navegação em `/srv/ti-dept` e visualização do subdiretório `projetos/`.
+* **Bloqueio Interdepartamental (`cicrano` tentou acessar TI):** O sistema retornou `-bash: cd: /srv/ti-dept: Permission denied`.
+* **Validação do Desafio - Diretoria (`beltrano`):** Acesso liberado à pasta `/srv/diretoria-dept` e leitura do arquivo `orcamento_ti.txt`.
+* **Bloqueio do Desafio - Diretoria (`fulano` tentou acessar Diretoria):** Retorno imediato de `Permission denied`.
+
+> *[Inserir capturas de tela das saídas de terminal demonstrando os testes de acesso e bloqueio]*
+
+---
+
+## 6. Problemas e Soluções
+* **Problema: Erro de negação de acesso ou falsos positivos ao testar permissões trocando de usuário no mesmo diretório**
+  * *Causa:* Uso do comando `su usuario` sem o hífen, o que preserva o caminho de trabalho e variáveis do usuário anterior.
+  * *Solução:* Uso estrito do comando `su - usuario` com o hífen. Isso força a inicialização de uma *login shell* limpa, direcionando o terminal para a `/home` do usuário testado.
+
+---
+
+## 7. Conclusão
+Esta prática consolidou a importância do padrão FHS para a organização do sistema e demonstrou a eficiência do controle de acesso em servidores corporativos. A aplicação do modelo octal `770` para pastas e `660` para arquivos garante que apenas usuários explicitamente associados aos seus grupos de trabalho tenham acesso aos dados, mantendo o isolamento rígido e a segurança de dados confidenciais entre departamentos.
