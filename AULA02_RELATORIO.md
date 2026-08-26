@@ -56,8 +56,7 @@ Capacitar a administração de contas de usuários, criação e gestão de grupo
   * Comando: `su - fulano` -> `cd /srv/financeiro`
   * *Resultado:* Retorno de `Permission denied`, confirmando o isolamento entre departamentos.
 
-![Evidências Aula 02](Captura%20de%20tela%202026-08-26%20002402.png)
-
+![Evidências Aula 02](img-exe2.png)
 ---
 
 ## 6. Problemas e Soluções
