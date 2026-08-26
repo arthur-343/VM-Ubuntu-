@@ -43,9 +43,9 @@ Aprender a explorar a árvore padrão de diretórios do Linux (Filesystem Hierar
 * **Validação do Desafio - Diretoria (`beltrano`):** Acesso liberado à pasta `/srv/diretoria-dept` e leitura do arquivo `orcamento_ti.txt`.
 * **Bloqueio do Desafio - Diretoria (`fulano` tentou acessar Diretoria):** Retorno imediato de `Permission denied`.
 
-![Inspeção FHS Parte 1](Captura%20de%20tela%202026-08-26%20005529.png)
-![Inspeção FHS Parte 2](Captura%20de%20tela%202026-08-26%20005610.png)
-![Estrutura Departamental e Permissões](Captura%20de%20tela%202026-08-26%20013049.png)
+![Inspeção FHS Parte 1](<img-exe3(img1).png>)
+![Inspeção FHS Parte 2](<img-exe3(img2).png>)
+![Estrutura Departamental e Permissões](<img-exe3(img3).png>)
 
 ---
 
