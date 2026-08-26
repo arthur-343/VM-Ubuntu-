@@ -52,8 +52,7 @@ Compreender os conceitos fundamentais de virtualização, hipervisores (Tipo 2) 
 * **Validação de Particionamento e LVM (`df -h`):** Confirmação de que a partição `/boot` de 1 GB está montada separadamente e de que o volume lógico `/dev/mapper/ubuntu--vg-ubuntu--lv` está devidamente montado na raiz `/` do sistema com o tamanho especificado.
 * **Atualização do Repositório (`sudo apt-get update`):** Execução da atualização dos índices do gerenciador de pacotes `apt` com privilégios de superusuário, confirmando o pleno acesso do servidor à internet.
 
-![Evidências Aula 01](Captura%20de%20tela%202026-08-25%20030044.png)
-
+![Evidências Aula 01](img-exe1.png)
 ---
 
 ## 6. Problemas e Soluções
