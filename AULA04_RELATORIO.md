@@ -58,6 +58,7 @@ Compreender a edição, visualização e manipulação de arquivos de texto no a
 * **Teste de Autenticação e Login Shell (`su - aluno01`):** Realização do login de teste utilizando as credenciais cadastradas, validando a troca de contexto e a entrada no diretório pessoal.
   ![Teste de Login](img-exe4_3.png)
 
+
 ---
 
 ## 6. Problemas e Soluções
